@@ -22,13 +22,13 @@
                 {% endif %}
             </div>
             {% endfor %}
-            <a href="{% url 'add_book' %}" 
-                class="inline-block mb-6 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700"> 
-                ➕ Add a Book
-            </a>
         {% else %}
             <p class="text-gray-500">No books yet. Add one!</p>
         {% endif %}
+        <a href="{% url 'add_book' %}" 
+                class="inline-block mb-6 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700"> 
+                ➕ Add a Book
+            </a>
 
     </div>
 
