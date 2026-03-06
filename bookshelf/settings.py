@@ -18,6 +18,7 @@ import dj_database_url
 # Load environment variables from .env file
 load_dotenv()
 
+
 SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG','False') == 'True'
 
@@ -30,7 +31,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['your-railway-url.up.railway.app', '127.0.0.1', 'localhost']
+CSRF_TRUSTED_ORIGINS = ['https://bookshelf-production-d813.up.railway.app']
+
 
 
 # Application definition
