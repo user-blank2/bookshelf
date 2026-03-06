@@ -31,7 +31,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-ALLOWED_HOSTS = ['your-railway-url.up.railway.app', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['bookshelf-production-d813.up.railway.app', '127.0.0.1', 'localhost']
 CSRF_TRUSTED_ORIGINS = ['https://bookshelf-production-d813.up.railway.app']
 
 
