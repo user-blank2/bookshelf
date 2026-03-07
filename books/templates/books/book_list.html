@@ -1,35 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Bookshelf</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 min-h-screen p-8">
+{% extends 'books/base.html' %}
 
-    <div class="max-w-2xl mx-auto">
-        <h1 class="text-3xl font-bold text-gray-800 mb-6">📚 My Bookshelf</h1>
-        <a href="{% url 'add_book' %}"
-        class="inline-block mb-6 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700">
-            ➕ Add a Book
-        </a>
-        {% if books %}
-            {% for book in books %}
-            <div class="bg-white rounded-lg shadow p-5 mb-4">
-                <h2 class="text-xl font-semibold text-gray-700">{{ book.title }}</h2>
-                <p class="text-gray-500">by {{ book.author }}</p>
-                <p class="text-yellow-500 mt-1">Rating: {{ book.rating_stars }}</p>
-                {% if book.notes %}
-                <p class="text-gray-600 mt-2 text-sm">{{ book.notes }}</p>
-                {% endif %}
-            </div>
-            {% endfor %}
-        {% else %}
-            <p class="text-gray-500">No books yet. Add one!</p>
+{% block title %}My Bookshelf{% endblock %}
+
+{% block content %}
+
+<h1 class="text-4xl font-bold mb-2">My Reading List</h1>
+<p class="text-gray-400 mb-8">{{ books|length }} book{{ books|length|pluralize }} tracked</p>
+
+{% if books %}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for book in books %}
+    <div class="bg-gray-900 rounded-2xl p-6 border border-gray-800 hover:border-purple-500 transition duration-200">
+
+        <!-- Color accent bar -->
+        <div class="h-1 w-16 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 mb-4"></div>
+
+        <h2 class="text-xl font-bold text-white mb-1">{{ book.title }}</h2>
+        <p class="text-gray-400 text-sm mb-3">by {{ book.author }}</p>
+        <p class="text-lg mb-3">{{ book.rating_stars }}</p>
+
+        {% if book.notes %}
+        <p class="text-gray-500 text-sm border-t border-gray-800 pt-3 mt-3">
+            {{ book.notes }}
+        </p>
         {% endif %}
-        
-    </div>
 
-</body>
-</html>
+        <p class="text-gray-700 text-xs mt-4">
+            Added {{ book.date_added|date:"M d, Y" }}
+        </p>
+    </div>
+    {% endfor %}
+</div>
+
+{% else %}
+<div class="text-center py-20">
+    <p class="text-6xl mb-4">📭</p>
+    <p class="text-gray-400 text-xl">No books yet.</p>
+    <p class="text-gray-600 mt-2">Add your first book to get started.</p>
+    <a href="{% url 'add_book' %}"
+       class="inline-block mt-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg hover:opacity-90 transition">
+        ➕ Add your first book
+    </a>
+</div>
+{% endif %}
+
+{% endblock %}

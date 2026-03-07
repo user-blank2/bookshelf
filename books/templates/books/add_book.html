@@ -1,31 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add a Book</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 min-h-screen p-8">
+{% extends 'books/base.html' %}
 
-    <div class="max-w-2xl mx-auto">
-        <h1 class="text-3xl font-bold text-gray-800 mb-6">➕ Add a Book</h1>
+{% block title %}Add a Book{% endblock %}
 
-        <div class="bg-white rounded-lg shadow p-6">
-            <form method="POST">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit"
-                    class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">
-                    Save Book
-                </button>
-            </form>
-        </div>
+{% block content %}
 
-        <a href="{% url 'book_list' %}" class="text-blue-500 mt-4 inline-block">
-            ← Back to bookshelf
-        </a>
+<div class="max-w-xl mx-auto">
+    <h1 class="text-4xl font-bold mb-2">Add a Book</h1>
+    <p class="text-gray-400 mb-8">Track a book you've read or are reading.</p>
+
+    <div class="bg-gray-900 rounded-2xl p-8 border border-gray-800">
+        <form method="POST">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-300 mb-2">
+                    {{ field.label }}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                <p class="text-pink-400 text-sm mt-1">{{ field.errors.0 }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <button type="submit"
+                class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-lg font-medium hover:opacity-90 transition">
+                Save Book
+            </button>
+        </form>
     </div>
+</div>
 
-</body>
-</html>
+{% endblock %}
