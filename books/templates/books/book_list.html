@@ -29,11 +29,14 @@
             class="flex-1 text-center text-sm bg-gray-800 text-gray-300 py-2 rounded-lg hover:bg-purple-600 hover:text-white transition">
                 ✏️ Edit
             </a>
+            <a href="{% url 'delete_book' book.pk %}"
+            class="flex-1 text-center text-sm bg-gray-800 text-gray-300 py-2 rounded-lg hover:bg-pink-600 hover:text-white transition">
+                🗑️ Delete
+            </a>
         </div>
         <p class="text-gray-700 text-xs mt-4">
             Added {{ book.date_added|date:"M d, Y" }}
         </p>
-        
     </div>
     {% endfor %}
 </div>

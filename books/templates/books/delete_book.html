@@ -1,0 +1,38 @@
+{% extends 'books/base.html' %}
+
+{% block title %}Delete {{ book.title }}{% endblock %}
+
+{% block content %}
+
+<div class="max-w-md mx-auto text-center">
+
+    <p class="text-6xl mb-6">🗑️</p>
+
+    <h1 class="text-3xl font-bold mb-2">Delete this book?</h1>
+    <p class="text-gray-400 mb-2">You're about to delete:</p>
+    <p class="text-xl font-semibold text-white mb-1">{{ book.title }}</p>
+    <p class="text-gray-500 mb-8">by {{ book.author }}</p>
+
+    <p class="text-pink-400 text-sm mb-8">
+        ⚠️ This cannot be undone.
+    </p>
+
+    <div class="bg-gray-900 rounded-2xl p-6 border border-gray-800">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="flex gap-3">
+                <button type="submit"
+                    class="flex-1 bg-pink-600 text-white py-3 rounded-lg font-medium hover:bg-pink-700 transition">
+                    Yes, delete it
+                </button>
+                <a href="{% url 'book_list' %}"
+                    class="flex-1 text-center bg-gray-800 text-gray-300 py-3 rounded-lg font-medium hover:bg-gray-700 transition">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}
