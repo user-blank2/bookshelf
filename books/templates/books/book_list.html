@@ -7,6 +7,31 @@
 <h1 class="text-4xl font-bold mb-2">My Reading List</h1>
 <p class="text-gray-400 mb-8">{{ books|length }} book{{ books|length|pluralize }} tracked</p>
 
+<form method="GET" action="{% url 'book_list' %}">
+    <div class="flex gap-3 mb-8">
+        <input
+            type="text"
+            name="q"
+            value="{{ query }}"
+            placeholder="Search by title or author..."
+            class="flex-1 bg-gray-900 border border-gray-700 text-white px-4 py-3 rounded-lg focus:border-purple-500 focus:outline-none">
+        <button type="submit"
+            class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg hover:opacity-90 transition">
+            🔍 Search
+        </button>
+    </div>
+</form>
+
+{% if query %}
+<p class="text-gray-400 text-sm mb-6">
+    Results for "<span class="text-purple-400">{{ query }}</span>"
+    — {{ books|length }} found
+    <a href="{% url 'book_list' %}" class="text-pink-400 ml-2 hover:underline">
+        clear ✕
+    </a>
+</p>
+{% endif %}
+
 {% if books %}
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     {% for book in books %}

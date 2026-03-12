@@ -6,8 +6,13 @@ from .forms import BookForm
 
 # get all books from the database
 def book_list(request):
-  books = Books.objects.all()
-  return render(request,'books/book_list.html',{'books':books})
+  input = request.GET.get('q','')
+  if input:
+    books = Books.objects.filter(title__icontains=input) | Books.objects.filter(author__icontains=input)
+  else:
+    books = Books.objects.all()
+    
+  return render(request,'books/book_list.html',{'books':books,'query':input})
 
 
 def add_book(request):
@@ -39,3 +44,4 @@ def delete_book(request,pk):
     book.delete()
     return redirect('book_list')
   return render(request,'books/delete_book.html',{'book':book})
+
